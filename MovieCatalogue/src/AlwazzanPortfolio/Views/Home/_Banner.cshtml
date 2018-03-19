@@ -1,0 +1,24 @@
+﻿@inject MovieDbContext _context
+@{
+    var bannerMovies = _context.Movies.Where(x => x.IsShowInBanner == true).ToList();
+}
+
+<div id="slidey" style="display:none;">
+    <ul>
+        @foreach (var movie in bannerMovies)
+        {
+             <li><img src="@movie.BannerImageURL" alt=""><p class='title'>@movie.Name</p><p class='description'> @movie.ShortDescription</p></li>
+        }
+    </ul>
+</div>
+<script src="js/jquery.slidey.js"></script>
+<script src="js/jquery.dotdotdot.min.js"></script>
+<script type="text/javascript">
+			$("#slidey").slidey({
+				interval: 8000,
+				listCount: 5,
+				autoplay: false,
+				showList: true
+			});
+			$(".slidey-list-description").dotdotdot();
+</script>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Movie>
+@inject MovieDbContext _context
+
+<div class="tittle-head">
+    <h4 class="latest-text">Own Movies</h4>
+    <div class="container">
+        <div class="agileits-single-top">
+            <ol class="breadcrumb">
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="active">Own Movies</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="contact-agile">
+        <form asp-controller="Movie" asp-action="Add" method="post">
+            <input type="submit" value="ADD NEW MOVIE">
+        </form>
+    </div>
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-3 single-right">
+            <div class="single-right-grids">
+                <div class="col-md-4 single-right-grid-left">
+                    <a asp-controller="Movie" asp-action="Index" asp-route-Name="@movie.Name"><img src="../@movie.ImageURL" alt="" /></a>
+                </div>
+                <div class="col-md-8 single-right-grid-right">
+                    <i class="fa fa-bookmark" aria-hidden="true"></i> <a asp-controller="Movie" asp-action="Index" asp-route-Name="@movie.Name" class="title"> @movie.Name.Substring(0, movie.Name.Length > 15 ? 15 : movie.Name.Length)</a><br />
+                    <i class="fa fa-bookmark" aria-hidden="true"></i> <a asp-controller="Gener" asp-action="Index" asp-route-Name="@movie.Genre?.Name" class="title"> @movie.Genre?.Name</a><br />
+                    <i class="fa fa-user" aria-hidden="true"></i> <span class="author">@movie.Author</span><br />
+                    <i class="fa fa-eye" aria-hidden="true"></i> <span class="views">@movie.Views</span><br />
+                </div>
+            </div>
+            <a href="/Movie/Update/@movie.ID"><i class="fa fa-trash" aria-hidden="true"></i> UPDATE</a>&nbsp;&nbsp;&nbsp;
+            <a href="/Movie/Delete/@movie.ID"><i class="fa fa-pencil-square" aria-hidden="true"></i> DELETE</a>
+        </div>
+    }
+</div>

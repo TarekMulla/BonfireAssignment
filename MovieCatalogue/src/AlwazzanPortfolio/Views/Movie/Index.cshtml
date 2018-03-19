@@ -1,0 +1,36 @@
+﻿@model Movie
+@inject MovieDbContext _context
+@{
+    var randomizeMovies = _context.Movies.OrderBy(x=> x.Year).Take(5).ToList();
+    var addedUser = _context.Users.SingleOrDefault(x => x.Id == Model.ApplicationUserID)?.Email.Split('@')[0].Substring(0, 5);
+}
+
+<div class="agileinfo-news-top-grids">
+    <div class="col-md-8 wthree-top-news-left">
+        <div class="wthree-news-left">
+            <div class="wthree-news-left-img">
+                <img src="@Model.BannerImageURL" alt="" />
+                <h4>@Model.ShortDescription</h4>
+                <div class="s-author">
+                    <p>Posted By <a href="#"><i class="fa fa-user" aria-hidden="true"></i> @addedUser</a> &nbsp;&nbsp; <i class="fa fa-calendar" aria-hidden="true"></i> @Model.CreationDate.ToString("MMM d, yyyy")</p>
+                </div>
+                <div id="fb-root"></div>
+                <div class="w3-agile-news-text">
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 single-right">
+        <h3>Up Next</h3>
+        <div class="single-grid-right">
+            @foreach (var movie in randomizeMovies)
+            {
+                @Html.Partial("~/Views/Shared/_ItemTemplate3.cshtml", movie)
+            }
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>

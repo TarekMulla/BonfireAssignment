@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Movie>
+@inject MovieDbContext _context
+
+<link rel="stylesheet" type="text/css" href="list-css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="list-css/basictable.css" />
+<script type="text/javascript" src="list-js/jquery.basictable.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+	   $('#table-breakpoint1').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint2').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint3').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint4').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint5').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint6').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint7').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint8').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint9').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint10').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint11').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint12').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint13').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint14').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint15').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint16').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint17').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint18').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint19').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint20').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint21').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint22').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint23').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint24').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint25').basictable({
+        breakpoint: 768
+      });
+	  $('#table-breakpoint26').basictable({
+        breakpoint: 768
+      });
+    });
+</script>
+<div class="faq">
+    <h4 class="latest-text w3_faq_latest_text w3_latest_text">Movies List</h4>
+    <div class="container">
+        <div class="agileits-news-top">
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">List</li>
+            </ol>
+        </div>
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <div class="agile-news-table">
+                        <div class="w3ls-news-result">
+                            <h4>Search Results : <span>@Model.Count()</span></h4>
+                        </div>
+                        <table id="table-breakpoint">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Movie Name</th>
+                                    <th>Year</th>
+                                    <th>Author</th>
+                                    <th>Type</th>
+                                    <th>Genre</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                }
+                                @foreach (var movie in Model)
+                                {
+                                    <tr>
+                                        <td>@(i++)</td>
+                                        <td class="w3-list-img"><a asp-controller="Movie" asp-action="Index" asp-route-Name="@movie.Name"><img src="@movie.ImageURL" alt="" /> <span>@movie.Name</span></a></td>
+                                        <td>@movie.Year</td>
+                                        <td class="w3-list-info">@movie.Author</td>
+                                        <td class="w3-list-info"><a asp-controller="Gener" asp-action="index" asp-route-GenerName="@movie.MovieType?.Name">@movie.MovieType?.Name</a></td>
+                                        <td class="w3-list-info"><a asp-controller="Type" asp-action="index" asp-route-TypeName="@movie.MovieType?.Name">@movie.Genre?.Name</a></td>
+                                        <td>@movie.Rate</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

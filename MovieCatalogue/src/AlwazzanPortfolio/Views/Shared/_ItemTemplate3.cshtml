@@ -1,0 +1,13 @@
+﻿@model Movie
+
+<div class="single-right-grids">
+    <div class="col-md-4 single-right-grid-left">
+        <a asp-controller="Movie" asp-action="Index" asp-route-Name="@Model.Name"><img src="@Model.ImageURL" alt="" /></a>
+    </div>
+    <div class="col-md-8 single-right-grid-right">
+        <a asp-controller="Movie" asp-action="Index" asp-route-Name="@Model.Name" class="title"> @Model.Name</a>
+        <p class="author"><a href="#" class="author">@Model.Author</a></p>
+        <p class="views">@Model.Views</p>
+    </div>
+    <div class="clearfix"> </div>
+</div>

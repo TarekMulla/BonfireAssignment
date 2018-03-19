@@ -1,0 +1,35 @@
+﻿@inject MovieDbContext _context
+@{ 
+    var genres = _context.Genres.ToList();
+    int itemsInColumn = (int)Math.Ceiling((double)(genres.Count / 3.0));
+}
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+<ul class="dropdown-menu multi-column columns-3">
+    <li>
+        <div class="col-sm-4">
+            <ul class="multi-column-dropdown">
+                @foreach (var item in genres.Take(itemsInColumn))
+                {
+                    <li><a asp-controller="Gener" asp-action="index" asp-route-GenerName="@item.Name">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <ul class="multi-column-dropdown">
+                @foreach (var item in genres.Skip(itemsInColumn).Take(itemsInColumn))
+                {
+                    <li><a asp-controller="Gener" asp-action="index" asp-route-GenerName="@item.Name">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <ul class="multi-column-dropdown">
+                @foreach (var item in genres.Skip(itemsInColumn * 2))
+                {
+                    <li><a asp-controller="Gener" asp-action="index" asp-route-GenerName="@item.Name">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </li>
+</ul>

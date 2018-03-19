@@ -1,0 +1,18 @@
+﻿@inject MovieDbContext _context
+@{
+    var reviewedMovies = _context.Movies.Where(x => x.IsReviewedMovie == true).ToList();
+}
+<div class="review-slider">
+		<h4 class="latest-text">Movie Reviews</h4>
+			<div class="container">
+			<div class="w3_agile_banner_bottom_grid">
+				<div id="owl-demo" class="owl-carousel owl-theme">
+                    @foreach (var movie in reviewedMovies)
+                    {
+                        @Html.Partial("~/Views/Shared/_ItemTemplate.cshtml", movie)
+                    }
+				</div>
+			</div>
+			<!--body wrapper end-->
+		</div>	
+</div>	

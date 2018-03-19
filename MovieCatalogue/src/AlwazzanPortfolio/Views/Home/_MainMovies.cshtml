@@ -1,0 +1,16 @@
+﻿@inject MovieDbContext _context
+@{
+    var mainMovies = _context.Movies.Where(x => x.IsNew == true).ToList();
+}
+<div class="banner-bottom">
+    <div class="container">
+        <div class="w3_agile_banner_bottom_grid">
+            <div id="owl-demo" class="owl-carousel owl-theme">
+                @foreach (var movie in mainMovies)
+                {
+                    @Html.Partial("_ItemTemplate.cshtml", movie)
+                }
+            </div>
+        </div>
+    </div>
+</div>

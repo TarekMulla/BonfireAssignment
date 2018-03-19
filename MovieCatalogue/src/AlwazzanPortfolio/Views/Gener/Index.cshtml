@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Movie>
+@inject MovieDbContext _context
+@{
+    int? PageCount = (ViewBag.MovieCount / 10) + 1;
+    string Gener = ViewBag.Gener;
+    int? Page = ViewBag.Page;
+}
+<div class="general-agileits-w3l">
+    <div class="w3l-medile-movies-grids">
+        <div class="movie-browse-agile">
+            <!--/browse-agile-w3ls -->
+            <div class="browse-agile-w3ls general-w3ls">
+                @Html.Partial("_GenerHeader.cshtml", Gener)
+                <div class="container" id="container">
+                    @foreach (var movie in Model)
+                    {
+                        @Html.Partial("~/Views/Shared/_ItemTemplate2.cshtml", movie)
+                    }
+                </div>
+            </div>
+            <div class="blog-pagenat-wthree">
+                <ul>
+                    <li><a class="frist @(Page == 0? "disabled" :"")" href="#" onclick="sendAJAX(@(Page - (Page == 0 ? 0 : 1)));">Prev</a></li>
+                    @for (int i = 1; i <= PageCount; i++)
+                    {
+                        <li><a href="#" onclick="sendAJAX(@(i - 1));">@(i)</a></li>
+                    }
+                    <li><a class="last @(Page == PageCount? "disabled" :"")" href="#" onclick="sendAJAX(@(PageCount));">Next</a></li>
+                </ul>
+            </div>
+        </div>
+        @Html.Partial("_ReviewMovies.cshtml")
+    </div>
+</div>
+
+<script type="text/javascript">
+    function sendAJAX(page) {
+        $.ajax({
+            url: '/Gener/Index',
+            type: "POST",
+            data: {
+                Gener: '@Gener',
+                Page: page,
+                Count: 12,
+            },
+            dataType: "json",
+            success: function (data) {
+                var container = $("#container");
+                container.empty();
+                $.each(data, function (index, element) {
+                    var rate = element.rate;
+                    var name = element.name;
+                    var ImageURL = element.imageURL;
+                    var IsNew = Boolean( element.isNew);
+                    var year = element.year;
+
+
+                    var div1tag = $('<div class="col-md-2 w3l-movie-gride-agile">');
+                    var div2tag = $('<a href="Movie/Index/' + name +'" class="hvr-shutter-out-horizontal">');
+                    var imgtag = $('<img src="' + ImageURL + '" title="album-name" class="img-responsive" alt=" " />');
+                    var div3tag = $('<div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>');
+                    var div4tag = $('<div class="mid-1 agileits_w3layouts_mid_1_home">');
+                    var div5tag = $('<div class="w3l-movie-text">');
+                    var div6tag = $('<h6><a href="Movie/Index/' + name + '">' + name + '</a></h6>');
+                    var div7tag = $('<div class="mid-2 agile_mid_2_home">');
+                    var ptag = $('<p>' + year + '</p>');
+                    var div8tag = $('<div class="block-stars">');
+                    var ultag = $('<ul class="w3l-ratings">');
+                    var li1tag = $('<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>');
+                    var li2tag = $('<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>');
+                    var li3tag = $('<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>');
+                    var li4tag = $('<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>');
+                    var li5tag = $('<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>');
+                    var div9tag = $('<div class="clearfix"></div>');
+                    var div10tag = $('<div class="ribben">');
+                    var p2tag = $('<p>NEW</p>');
+                    var node = div1tag.append(div2tag.append(imgtag).append(div3tag))
+                    .append(div4tag.append(div5tag.append(div6tag)).append(div7tag.append(ptag).append(div8tag.append(ultag.append(li1tag).append(li2tag).append(li3tag).append(li4tag).append(li5tag))).append(div9tag)));
+                    if (IsNew) {
+                        node.append(div10tag.append(p2tag));
+                    }
+                    container.append(node);
+                })
+            }
+        });
+    }
+</script>
+

@@ -1,0 +1,90 @@
+﻿@model Movie
+@inject MovieDbContext _context
+@{
+    var genres = _context.Genres.ToList();
+    var movieTypes = _context.MovieTypes.ToList();
+}
+<div class="contact-agile">
+    <div class="faq">
+        <h4 class="latest-text w3_latest_text">Add New Movie</h4>
+        <div class="container">
+            <form asp-controller="Movie" asp-action="UpdateInfo" method="post"  enctype="multipart/form-data">
+                <input hidden asp-for="ID" />
+                <div class="col-lg-2">Name:</div> <div class="col-lg-10"> <input asp-for="Name" type="text" name="Name" placeholder="Movie Name" required=""></div>
+                <br />
+                <div class="col-lg-2">
+                    Author:
+                </div><div class="col-lg-10">
+                    <input asp-for="Author" type="text" name="Author" placeholder="Author" required="">
+                </div>
+                <br />
+                <div class="col-lg-2">Show date:</div> <div class="col-lg-10"> <input asp-for="ShowDate" type="date" name="ShowDate" placeholder="Show date" required=""></div>
+                <br />
+                <div class="col-lg-2">Year:</div> <div class="col-lg-10"> <input asp-for="Year" type="number" name="Year" placeholder="Year" required=""></div>
+                <br />
+                <div class="col-lg-2">Rate:</div> <div class="col-lg-10"> <input asp-for="Rate" type="number" name="Rate" placeholder="Rate" required=""></div>
+                <br />
+                <div class="col-lg-2">
+                    Genre:
+                </div>
+                <div class="col-lg-10">
+                    <select name="GenreID" asp-for="GenreID">
+                        @foreach (var genre in genres)
+                        {
+                            <option value="@genre.ID">@genre.Name</option>
+                        }
+                    </select>
+                </div>
+                <br />
+                <div class="col-lg-2">
+                    Type:
+                </div>
+                <div class="col-lg-10">
+                    <select name="MovieTypeID" asp-for="MovieTypeID">
+                        @foreach (var type in movieTypes)
+                        {
+                            <option value="@type.ID">@type.Name</option>
+                        }
+                    </select>
+                </div>
+                <br />
+                <div class="col-lg-2">Is New:</div> <div class="col-lg-10"> <input asp-for="IsNew" type="checkbox" name="IsNew" placeholder="IsNew"></div>
+                <br />
+                <div class="col-lg-2">Is Featured:</div> <div class="col-lg-10"> <input  asp-for="IsFeatured" type="checkbox" name="IsFeatured" placeholder="IsFeatured" ></div>
+                <br />
+                <div class="col-lg-2">Is RecentlyAdded:</div> <div class="col-lg-10"> <input  asp-for="IsRecentlyAdded" type="checkbox" name="IsRecentlyAdded" placeholder="IsRecentlyAdded" ></div>
+                <br />
+                <div class="col-lg-2">Is Reviewed Movie:</div> <div class="col-lg-10"> <input   asp-for="IsReviewedMovie" type="checkbox" name="IsReviewedMovie" placeholder="IsReviewedMovie" ></div>
+                <br />
+                <div class="col-lg-2">Is Show In Banner:</div> <div class="col-lg-10"> <input  asp-for="IsShowInBanner" type="checkbox" name="IsShowInBanner" placeholder="IsShowInBanner" ></div>
+                <br />
+                <div class="col-lg-2">Is Top Rating:</div> <div class="col-lg-10"> <input asp-for="IsTopRating" type="checkbox" name="IsTopRating" placeholder="IsTopRating"></div>
+                <br />
+                <div class="col-lg-2">Is Top Viewed:</div> <div class="col-lg-10"> <input  asp-for="IsTopViewed" type="checkbox" name="IsTopViewed" placeholder="IsTopViewed"></div>
+                <br />
+                <div class="col-lg-2">
+                    Short Description:
+                </div><div class="col-lg-10">
+                    <textarea asp-for="ShortDescription" name="ShortDescription" placeholder="ShortDescription"></textarea>
+                </div>
+                <div class="col-lg-2">
+                    Description:
+                </div> <div class="col-lg-10">
+                    <textarea asp-for="Description" name="Description" placeholder="Description"></textarea>
+                </div>
+                <div class="col-lg-2">
+                    Image:
+                </div> <div class="col-lg-10">
+                           <input type="file" name="file" />
+                </div>
+                <div class="col-lg-2">
+                    Banner Image:
+                </div> <div class="col-lg-10">
+                           <input type="file" name="banner" />
+                </div>
+                
+                <input type="submit" value="ADD MOVIE">
+            </form>
+        </div>
+    </div>
+</div>

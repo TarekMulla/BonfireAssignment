@@ -1,0 +1,52 @@
+﻿@inject MovieDbContext _context
+@{
+    var featuredMovies = _context.Movies.Where(x => x.IsFeatured == true).ToList();
+    var recentlyAddedMovies = _context.Movies.Where(x => x.IsRecentlyAdded == true).ToList();
+    var topViewedMovies = _context.Movies.Where(x => x.IsTopViewed == true).ToList();
+    var topRatingMovies = _context.Movies.Where(x => x.IsTopRating == true).ToList();
+}
+<div class="general">
+    <h4 class="latest-text w3_latest_text">Featured Movies</h4>
+    <div class="container">
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Featured</a></li>
+                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Top viewed</a></li>
+                <li role="presentation"><a href="#rating" id="rating-tab" role="tab" data-toggle="tab" aria-controls="rating" aria-expanded="true">Top Rating</a></li>
+                <li role="presentation"><a href="#imdb" role="tab" id="imdb-tab" data-toggle="tab" aria-controls="imdb" aria-expanded="false">Recently Added</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="w3_agile_featured_movies">
+                        @foreach (var movie in featuredMovies)
+                        {
+                            @Html.Partial("~/Views/Shared/_ItemTemplate2.cshtml", movie)
+                        }
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                    @foreach (var movie in topViewedMovies)
+                    {
+                        @Html.Partial("~/Views/Shared/_ItemTemplate2.cshtml", movie)
+                    }
+                    <div class="clearfix"> </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="rating" aria-labelledby="rating-tab">
+                   @foreach (var movie in topRatingMovies)
+                   {
+                        @Html.Partial("~/Views/Shared/_ItemTemplate2.cshtml", movie)
+                   }
+                    <div class="clearfix"> </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="imdb" aria-labelledby="imdb-tab">
+                   @foreach (var movie in recentlyAddedMovies)
+                   {
+                        @Html.Partial("~/Views/Shared/_ItemTemplate2.cshtml", movie)
+                   }
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
